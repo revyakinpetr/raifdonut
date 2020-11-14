@@ -24,18 +24,35 @@ class StreamerPage(generics.RetrieveUpdateDestroyAPIView):
         serializer = StreamerSerializer(streamer)
         return Response(serializer.data)
 
-    def post(self, request, streamer_nickname):
+    # def post(self, request, streamer_nickname):
+    #     try:
+    #         streamer = Streamer.objects.get(nickname=streamer_nickname)
+    #     except Streamer.DoesNotExist:
+    #         raise Http404
+        
+    #     streamer.min_donation = self.request.POST.get('min_donation', 10.00)
+    #     streamer.account = self.request.POST.get('account', None)
+    #     streamer.nickname = self.request.POST.get('nickname', streamer.nickname)
+    #     streamer.save()
+    #     print(self.request.POST)
+    #     print(self.request.query_params)
+    #     return Response({'Message': 'Data changed succesfully!'})
+
+
+class StreamerChange(generics.ListCreateAPIView):
+    queryset = Streamer.objects.all()
+    serializer_class = StreamerSerializer
+
+    def get(self, request, streamer_nickname=None, **kwargs):
         try:
             streamer = Streamer.objects.get(nickname=streamer_nickname)
         except Streamer.DoesNotExist:
             raise Http404
-        
-        streamer.min_donation = self.request.POST.get('min_donation', 10.00)
-        streamer.account = self.request.POST.get('account', None)
-        streamer.nickname = self.request.POST.get('nickname', streamer.nickname)
+
+        streamer.min_donation = self.request.query_params.get('min_donation', streamer.min_donation)
+        streamer.account = self.request.query_params.get('account', streamer.account)
+        streamer.nickname = self.request.query_params.get('nickname', streamer.nickname)
         streamer.save()
-        print(self.request.POST)
-        print(self.request.query_params)
         return Response({'Message': 'Data changed succesfully!'})
 
 
