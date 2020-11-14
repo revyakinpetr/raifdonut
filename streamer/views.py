@@ -35,6 +35,7 @@ class StreamerPage(generics.RetrieveUpdateDestroyAPIView):
         streamer.nickname = self.request.POST.get('nickname', streamer.nickname)
         streamer.save()
         print(self.request.POST)
+        print(self.request.query_params)
         return Response({'Message': 'Data changed succesfully!'})
 
 
