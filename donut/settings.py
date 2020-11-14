@@ -25,7 +25,10 @@ SECRET_KEY = 'ia7au3z(&*%mkc@xtu3(jsx6muyrsx$ko63ywjf5jwj3+zi6nj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'boiling-caverns-10919.herokuapp.com/',
+    '127.0.0.1'
+]
 
 
 # Application definition
