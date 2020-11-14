@@ -24,7 +24,7 @@ class StreamerPage(generics.RetrieveUpdateDestroyAPIView):
         serializer = StreamerSerializer(streamer)
         return Response(serializer.data)
 
-    def put(self, request, streamer_nickname):
+    def post(self, request, streamer_nickname):
         try:
             streamer = Streamer.objects.get(nickname=streamer_nickname)
         except Streamer.DoesNotExist:
