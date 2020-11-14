@@ -26,7 +26,7 @@ SECRET_KEY = 'ia7au3z(&*%mkc@xtu3(jsx6muyrsx$ko63ywjf5jwj3+zi6nj'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'boiling-caverns-10919.herokuapp.com/',
+    'boiling-caverns-10919.herokuapp.com',
     '127.0.0.1'
 ]
 
