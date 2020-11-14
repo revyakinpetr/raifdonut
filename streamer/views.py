@@ -3,8 +3,8 @@ from django.http import Http404
 from rest_framework import generics
 from rest_framework.response import Response
 
-from streamer.models import Streamer
-from streamer.serializers import StreamerSaveSerializer, StreamerSerializer
+from streamer.models import Streamer, Donat
+from streamer.serializers import StreamerSaveSerializer, StreamerSerializer, DonatSaveSerializer, DonatListSerializer
 
 
 class StreamerCreate(generics.ListCreateAPIView):
@@ -35,3 +35,22 @@ class StreamerPage(generics.RetrieveUpdateDestroyAPIView):
         streamer.nickname = self.request.POST['nickname'] or streamer.nickname
         streamer.save()
         return Response({'Message': 'Data changed succesfully!'})
+
+
+class DonatCreate(generics.ListCreateAPIView):
+    queryset = Donat.objects.all()
+    serializer_class = DonatSaveSerializer
+
+
+class DonatList(generics.ListCreateAPIView):
+    queryset = Donat.objects.all()
+    serializer_class = DonatListSerializer
+
+    def get_queryset(self):
+        queryset = Donat.objects.all()
+        streamer_id = self.request.query_params.get('id')
+        if streamer_id is not None:
+            queryset = queryset.filter(streamer_id=streamer_id)
+        else:
+            raise Http404
+        return queryset

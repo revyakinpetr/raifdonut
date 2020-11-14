@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from streamer.models import Streamer
+from streamer.models import Streamer, Donat
 
 
 class StreamerSaveSerializer(serializers.ModelSerializer):
@@ -13,3 +13,15 @@ class StreamerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Streamer
         fields = ['id', 'nickname', 'min_donation', 'account']
+
+
+class DonatSaveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Donat
+        fields = ['id', 'streamer_id', 'name', 'text', 'amount']
+
+
+class DonatListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Donat
+        fields = ['id', 'streamer_id', 'name', 'text', 'amount', 'create_date']
