@@ -89,7 +89,6 @@ pycparser==2.19
 pydot==1.4.1
 pydotplus==2.0.2
 Pygments==2.6.1
-pygraphviz==1.5
 PyJWT==1.7.1
 pyparsing==2.4.7
 pyrsistent==0.15.7
