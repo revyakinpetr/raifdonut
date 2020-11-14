@@ -23,3 +23,15 @@ class StreamerPage(generics.RetrieveUpdateDestroyAPIView):
             raise Http404
         serializer = StreamerSerializer(streamer)
         return Response(serializer.data)
+
+    def put(self, request, streamer_nickname):
+        try:
+            streamer = Streamer.objects.get(nickname=streamer_nickname)
+        except Streamer.DoesNotExist:
+            raise Http404
+        
+        streamer.min_donation = self.request.POST['min_donation'] or 10.00
+        streamer.account = self.request.POST['account'] or None
+        streamer.nickname = self.request.POST['nickname'] or streamer.nickname
+        streamer.save()
+        return Response({'Message': 'Data changed succesfully!'})
