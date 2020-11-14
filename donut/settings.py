@@ -140,4 +140,5 @@ CORS_ORIGIN_WHITELIST = [
 CORS_ALLOW_HEADERS = (
     'Access-Control-Allow-Headers',
     'Access-Control-Allow-Credentials',
+    'Access-Control-Allow-Methods'
 )
