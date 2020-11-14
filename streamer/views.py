@@ -30,9 +30,9 @@ class StreamerPage(generics.RetrieveUpdateDestroyAPIView):
         except Streamer.DoesNotExist:
             raise Http404
         
-        streamer.min_donation = self.request.POST['min_donation'] or 10.00
-        streamer.account = self.request.POST['account'] or None
-        streamer.nickname = self.request.POST['nickname'] or streamer.nickname
+        streamer.min_donation = self.request.POST.get('min_donation', 10.00)
+        streamer.account = self.request.POST.get('account', None)
+        streamer.nickname = self.request.POST.get('nickname', streamer.nickname)
         streamer.save()
         return Response({'Message': 'Data changed succesfully!'})
 
