@@ -12,7 +12,8 @@ class Streamer(models.Model):
     min_donation = models.DecimalField(max_digits=20, decimal_places=2, default=10.0)
 
     def save(self, *args, **kwargs):
-        self.token = secrets.token_urlsafe(20)
+        if not self.token:
+            self.token = secrets.token_urlsafe(20)
         super(Streamer, self).save(*args, **kwargs)
 
 
