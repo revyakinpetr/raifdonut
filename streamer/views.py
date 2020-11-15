@@ -87,6 +87,9 @@ class DonatShow(generics.ListCreateAPIView):
             raise Http404
 
         last_donat = Donat.objects.all().filter(streamer_id=streamer.id).filter(is_shown=0).order_by('create_date').first()
-        last_donat.is_shown = 1
-        last_donat.save()
-        return Response(model_to_dict(last_donat))
+        if last_donat:
+            last_donat.is_shown = 1
+            last_donat.save()
+            return Response(model_to_dict(last_donat))
+        else:
+            return Response({})
