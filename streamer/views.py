@@ -70,7 +70,7 @@ class DonatList(generics.ListCreateAPIView):
         queryset = Donat.objects.all()
         streamer_id = self.request.query_params.get('id')
         if streamer_id is not None:
-            queryset = queryset.filter(streamer_id=streamer_id)
+            queryset = queryset.filter(streamer_id=streamer_id).order_by('create_date')
         else:
             raise Http404
         return queryset
