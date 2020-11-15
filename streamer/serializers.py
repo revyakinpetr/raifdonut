@@ -12,7 +12,7 @@ class StreamerSaveSerializer(serializers.ModelSerializer):
 class StreamerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Streamer
-        fields = ['id', 'nickname', 'min_donation', 'account']
+        fields = ['id', 'nickname', 'min_donation', 'account', 'token']
 
 
 class DonatSaveSerializer(serializers.ModelSerializer):
@@ -25,3 +25,9 @@ class DonatListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Donat
         fields = ['id', 'streamer_id', 'name', 'text', 'amount', 'create_date']
+
+
+class DonatShowSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Donat
+        fields = ['id', 'name', 'text', 'amount', 'create_date', 'is_shown']

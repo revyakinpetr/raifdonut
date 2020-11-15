@@ -8,6 +8,7 @@ urlpatterns = [
     path('change/<str:streamer_nickname>', views.StreamerChange.as_view()),
     path('donation', views.DonatCreate.as_view()),
     path('alldonation', views.DonatList.as_view()),
+    path('lastdonat', views.DonatShow.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

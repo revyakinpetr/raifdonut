@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.http import Http404
 from rest_framework import generics
 from rest_framework.response import Response
+from django.forms.models import model_to_dict
 
 from streamer.models import Streamer, Donat
-from streamer.serializers import StreamerSaveSerializer, StreamerSerializer, DonatSaveSerializer, DonatListSerializer
+from streamer.serializers import StreamerSaveSerializer, StreamerSerializer, DonatSaveSerializer, DonatListSerializer, DonatShowSerializer
 
 
 class StreamerCreate(generics.ListCreateAPIView):
@@ -73,3 +74,19 @@ class DonatList(generics.ListCreateAPIView):
         else:
             raise Http404
         return queryset
+
+
+class DonatShow(generics.ListCreateAPIView):
+    queryset = Donat.objects.all()
+    serializer_class = DonatShowSerializer
+
+    def get(self, request, **kwargs):
+        try:
+            streamer = Streamer.objects.get(token=self.request.query_params.get('token', None))
+        except Streamer.DoesNotExist:
+            raise Http404
+
+        last_donat = Donat.objects.all().filter(streamer_id=streamer.id).filter(is_shown=0).order_by('create_date').first()
+        last_donat.is_shown = 1
+        last_donat.save()
+        return Response(model_to_dict(last_donat))

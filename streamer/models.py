@@ -26,3 +26,4 @@ class Donat(models.Model):
     qr_id = models.TextField(max_length=40, null=True)
     qr_url = models.TextField(null=True)
     payment_state = models.TextField(max_length=15, null=True)
+    is_shown = models.IntegerField(default=0)
